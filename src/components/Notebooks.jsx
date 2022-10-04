@@ -1,16 +1,19 @@
 import React, {useState} from 'react';
 import { Card, Col, Button, Modal } from 'react-bootstrap';
 import EditNotebooks from './EditNotebooks';
+import { deletedNotes } from '../Actions/NoteActions';
+import{useDispatch} from 'react-redux'
 
 const Notebooks = (props) => {
   
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  const dispatch = useDispatch()
+  
   const handleDelete = (e) => {
     e.preventDefault();
-    props.deleteNotebook(props.notebookInfo.id);
+    dispatch(deletedNotes(props.notebookInfo.id));
   };
 
   return (

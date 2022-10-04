@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Form, Button} from 'react-bootstrap';
-
+import { connect } from "react-redux";
+import { typeNewNote } from '../Actions/NoteActions';
+import { v4 as uuid } from 'uuid';
 class AddNotebooks extends Component {
   constructor(props){
     super(props);
@@ -16,7 +18,7 @@ class AddNotebooks extends Component {
 
   handleSubmit=(e)=>{
     e.preventDefault();
-    this.props.addNotebook(this.state);
+    this.props.typeNewNote({title: this.state.title, date:this.state.date, description: this.state.description, id:uuid() });
     this.setState({title:"", date:"", description: ""});
   };
 
@@ -41,12 +43,14 @@ class AddNotebooks extends Component {
             <Form.Control type="description" as="textarea" style={{height:"100px"}} placeholder="Note Text" value={this.state.description} name="description" onChange={this.handleChange}/>
           </Form.Group>
           
-          <Button style={{marginTop:"15px", marginLeft: "150px", width: "100px"}} variant="primary" type="submit">
+        <Button style={{marginTop:"15px", marginLeft: "150px", width: "100px"}} variant="primary" type="submit" >
             Submit
           </Button>
         </Form>
     );
   }
 }
-
-export default AddNotebooks;
+const mapDispatchToProps = {
+  typeNewNote: typeNewNote,
+}
+export default connect(null, mapDispatchToProps) (AddNotebooks);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row } from 'react-bootstrap';
 import Notebooks from './Notebooks';
-
+import {connect} from 'react-redux'
 const EveryNotebooks = (props) => {
   return (
       <Container>
@@ -15,5 +15,9 @@ const EveryNotebooks = (props) => {
       </Container>
   );
 }
-
-export default EveryNotebooks;
+const mapStateToProps = (state) => {
+  return{
+    notebooksData:state.notebooks,
+  }
+}
+export default connect(mapStateToProps) (EveryNotebooks);

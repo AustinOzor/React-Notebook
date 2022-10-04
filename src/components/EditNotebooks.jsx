@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Button} from 'react-bootstrap';
-
+import { editedNotes } from '../Actions/NoteActions';
+import {connect} from 'react-redux'
 class EditNotebooks extends Component {
   constructor(props){
     super(props);
@@ -21,7 +22,7 @@ class EditNotebooks extends Component {
   handleSubmit=(e)=>{
     e.preventDefault();
     //this.props.addNotebook(this.state); to edit below code is introduced
-    this.props.editNotebook(this.state.id, this.state);
+    this.props.editedNotes({ id:this.state.id, title:this.state.title, date:this.state.date, description:this.state.description });
     this.setState({title:"", date:"", description: ""});
     this.props.closeModal();
   };
@@ -55,5 +56,7 @@ class EditNotebooks extends Component {
     );
   }
 }
-
-export default EditNotebooks;
+const mapDispatchToProps = {
+  editedNotes,
+}
+export default connect(null, mapDispatchToProps ) (EditNotebooks);
